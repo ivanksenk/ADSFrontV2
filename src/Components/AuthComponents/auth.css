@@ -1,0 +1,21 @@
+.splash_img{
+    max-width: 30vh;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.load-container {
+    display: flex;
+    flex-direction: column; /* Элементы в столбик (картинка сверху, текст снизу) */
+    align-items: center; /* Горизонтальное выравнивание */
+    justify-content: center; /* Вертикальное выравнивание */
+    height: 100vh; /* Занимает 100% высоты окна */
+    gap: 10px; /* Отступ между элементами */
+    text-align: center; /* Выравнивание текста */
+  }
+
+
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
