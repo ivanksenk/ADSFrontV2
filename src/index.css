@@ -2,12 +2,14 @@
   --background: rgba(245, 247, 250, 1);
 
   --primary-normal: rgba(79, 160, 255, 1);
-  --primary-light: rgba(79, 160, 255, 0.5);
+  --primary-light: rgba(79, 160, 255, 0.2);
   --primary-active: rgba(55, 130, 218, 1);
 
   --danger-normal: rgba(255, 79, 79, 1);
   --danger-light: rgba(255, 79, 79, 0.5);
   --danger-active: rgba(234, 49, 49, 1);
+
+  --typo: rgba(35, 35, 35, 1)
 }
 
 body {
@@ -18,7 +20,92 @@ body {
   background-color: var(--background);
 }
 
+h1,h2,h3,h4{
+  margin: 0;
+  padding: 0;
+}
+
+p{
+  padding: 0;
+  margin: 0;
+}
+
+.mb10{
+  margin-bottom: 10px;
+}
+
+.input{
+  font-family: "Ubuntu", monospace;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+  background-color: var(--background);
+  font-size: 18px;
+  border: 1px solid var(--primary-light);
+  border-radius: 12px;
+}
+
+.input:active{
+  border: 1px solid var(--primary-active);
+}
+
+.input:focus{
+  border: 1px solid var(--primary-active);
+  outline: none;
+}
+
+.input:focus-visible{
+  border: 1px solid var(--primary-active);
+  outline: none;
+}
+
+
+.input-label{
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.btn{
+  background-color: var(--primary-normal);
+  padding-top: 4px;
+  padding-bottom: 4px;
+  color: #fff;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn:hover{
+  background-color: var(--primary-active);
+}
+
+.ul-res{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.container{
+  margin: 0 auto;
+  max-width: 1280px;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
 
 .flex {
   display: flex;
+}
+
+.fld-cml{
+flex-direction: column;
+}
+
+.card{
+  background-color: #fff;
+  border-radius: 8px;
 }
