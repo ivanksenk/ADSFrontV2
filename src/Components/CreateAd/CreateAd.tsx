@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useCallback } from "react";
-import { MdArrowForwardIos, MdArrowBack,MdDeleteForever,MdOutlinePhoto,MdAddAPhoto  } from "react-icons/md";
+import { MdArrowForwardIos, MdArrowBack, MdDeleteForever, MdAddAPhoto } from "react-icons/md";
 import './createAd.css'
 import { AdCategories } from "../../Interfaces/createAd.interface";
 import { useDropzone } from 'react-dropzone';
@@ -50,11 +50,11 @@ export const CreateAd: React.FC<CreateAdProps> = () => {
             previews: newPreviews
         }));
     };
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
-    };
+    console.log(subCategory, isLoading, message)
+    // const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    //     const { name, value } = e.target;
+    //     setFormData(prev => ({ ...prev, [name]: value }));
+    // };
 
     const compressImages = async (files: File[]): Promise<File[]> => {
         const options = {
@@ -189,48 +189,48 @@ export const CreateAd: React.FC<CreateAdProps> = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        
+
         if (!formData.title || !formData.description || formData.files.length === 0) {
-          setMessage('Пожалуйста, заполните все поля и загрузите хотя бы одно изображение');
-          return;
+            setMessage('Пожалуйста, заполните все поля и загрузите хотя бы одно изображение');
+            return;
         }
-        
+
         setIsLoading(true);
         setMessage('');
-        
+
         try {
-          // Сжимаем изображения перед отправкой
-          const compressedFiles = await compressImages(formData.files);
-          
-          const data = new FormData();
-          data.append('title', formData.title);
-          data.append('description', formData.description);
-          
-          compressedFiles.forEach(file => {
-            data.append('images', file, file.name);
-          });
-          
-        //   const response = await axios.post('http://localhost:5000/api/posts', data, {
-        //     headers: {
-        //       'Content-Type': 'multipart/form-data'
-        //     }
-        //   });
-          
-          setMessage('Форма успешно отправлена!');
-          // Очищаем форму после успешной отправки
-          setFormData({
-            title: '',
-            description: '',
-            files: [],
-            previews: []
-          });
+            // Сжимаем изображения перед отправкой
+            const compressedFiles = await compressImages(formData.files);
+
+            const data = new FormData();
+            data.append('title', formData.title);
+            data.append('description', formData.description);
+
+            compressedFiles.forEach(file => {
+                data.append('images', file, file.name);
+            });
+
+            //   const response = await axios.post('http://localhost:5000/api/posts', data, {
+            //     headers: {
+            //       'Content-Type': 'multipart/form-data'
+            //     }
+            //   });
+
+            setMessage('Форма успешно отправлена!');
+            // Очищаем форму после успешной отправки
+            setFormData({
+                title: '',
+                description: '',
+                files: [],
+                previews: []
+            });
         } catch (error) {
-          console.error('Ошибка при отправке формы:', error);
-          setMessage('Произошла ошибка при отправке формы');
+            console.error('Ошибка при отправке формы:', error);
+            setMessage('Произошла ошибка при отправке формы');
         } finally {
-          setIsLoading(false);
+            setIsLoading(false);
         }
-      };
+    };
 
     switch (activeStep) {
         case 0: return (
@@ -239,7 +239,7 @@ export const CreateAd: React.FC<CreateAdProps> = () => {
                 <ul className="create-ad__list">
                     {
                         categories.map((item) => {
-                            return (<li key={item.id}><button className="flex create-ad__setCategory-btn" onClick={e => handleSetCategory(item.id)}>{item.title}<MdArrowForwardIos /></button></li>)
+                            return (<li key={item.id}><button className="flex create-ad__setCategory-btn" onClick={() => handleSetCategory(item.id)}>{item.title}<MdArrowForwardIos /></button></li>)
                         })
                     }
                 </ul>
@@ -251,11 +251,11 @@ export const CreateAd: React.FC<CreateAdProps> = () => {
                 return (
                     <>
                         <h3>Уточните категорию</h3>
-                        <button className="addAds-back-btn" onClick={e => { setActiveStep(activeStep - 1) }}><MdArrowBack /></button>
+                        <button className="addAds-back-btn" onClick={() => { setActiveStep(activeStep - 1) }}><MdArrowBack /></button>
                         <ul className="create-ad__list">
                             {
                                 subCategory.map((item) => {
-                                    return (<li key={`sub_${item.id}`}><button className="flex create-ad__setCategory-btn" onClick={(e) => handleSubCategory(item.id)}>{item.title}<MdArrowForwardIos /></button></li>)
+                                    return (<li key={`sub_${item.id}`}><button className="flex create-ad__setCategory-btn" onClick={() => handleSubCategory(item.id)}>{item.title}<MdArrowForwardIos /></button></li>)
                                 })
                             }
                         </ul>
@@ -269,15 +269,15 @@ export const CreateAd: React.FC<CreateAdProps> = () => {
             return (
                 <>
                     <h3>Новое объявление</h3>
-                    <button className="addAds-back-btn" onClick={e => { setActiveStep(activeStep - 1) }}><MdArrowBack /></button>
+                    <button className="addAds-back-btn" onClick={() => { setActiveStep(activeStep - 1) }}><MdArrowBack /></button>
                     <div className="flex card addAds-card">
                         <label className="fld-cml flex">
                             <span className="input-label">Название объявления</span>
-                            <input className="input" type="text" onChange={e => setTitle(e.target.value)} onInput={e => setErrMsg('')} />
+                            <input className="input" type="text" onChange={e => setTitle(e.target.value)} onInput={() => setErrMsg('')} />
                         </label>
                         <div>
                             {errMsg ? <p>{errMsg}</p> : null}
-                            <button className="btn addAds-btn" onClick={e => { handleTitleNext() }}>Далее<MdArrowForwardIos /></button>
+                            <button className="btn addAds-btn" onClick={() => { handleTitleNext() }}>Далее<MdArrowForwardIos /></button>
                         </div>
                     </div>
                 </>
@@ -287,7 +287,7 @@ export const CreateAd: React.FC<CreateAdProps> = () => {
             return (
                 <>
                     <h3>Новое объявление</h3>
-                    <button className="addAds-back-btn" onClick={e => { setActiveStep(activeStep - 1) }}><MdArrowBack /></button>
+                    <button className="addAds-back-btn" onClick={() => { setActiveStep(activeStep - 1) }}><MdArrowBack /></button>
                     <div className="flex card addAds-card">
                         <label className="fld-cml flex">
                             <span className="input-label">Описание</span>
@@ -295,7 +295,7 @@ export const CreateAd: React.FC<CreateAdProps> = () => {
                         </label>
                         <div>
                             {errMsg ? <p>{errMsg}</p> : null}
-                            <button className="btn addAds-btn" onClick={e => { handleDescrNext() }}>Далее<MdArrowForwardIos /></button>
+                            <button className="btn addAds-btn" onClick={() => { handleDescrNext() }}>Далее<MdArrowForwardIos /></button>
                         </div>
                     </div>
                 </>
@@ -304,14 +304,14 @@ export const CreateAd: React.FC<CreateAdProps> = () => {
             return (
                 <>
                     <h3>Добавьте фото</h3>
-                    <button className="addAds-back-btn" onClick={e => { setActiveStep(activeStep - 1) }}><MdArrowBack /></button>
-                  
+                    <button className="addAds-back-btn" onClick={() => { setActiveStep(activeStep - 1) }}><MdArrowBack /></button>
+
                     <div className="flex card addAds-card">
-                    <div className="flex  preview-container">
+                        <div className="flex  preview-container">
                             {formData.previews.map((preview, index) => (
-                                <div key={index} className="preview-item"  style={{background:`url(${preview})`,backgroundSize:'cover',backgroundRepeat:'no-repeat'}}>
-                                   
-                                   
+                                <div key={index} className="preview-item" style={{ background: `url(${preview})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}>
+
+
                                     <button type="button" className="removeButton" onClick={() => removeImage(index)}><MdDeleteForever /></button>
                                 </div>
                             ))}
@@ -320,16 +320,16 @@ export const CreateAd: React.FC<CreateAdProps> = () => {
                             <input {...getInputProps()} />
                             {isDragActive ? (
                                 <>
-                                <span className="input-label mb10">Прикрепите  фотографии</span>
-                                <div className="photo-input"><MdAddAPhoto /></div>
+                                    <span className="input-label mb10">Прикрепите  фотографии</span>
+                                    <div className="photo-input"><MdAddAPhoto /></div>
                                 </>
                             ) : (
                                 <>
-                                <span className="input-label mb10">Прикрепите фотографии</span>
-                                <div className="photo-input"><MdAddAPhoto /></div>
+                                    <span className="input-label mb10">Прикрепите фотографии</span>
+                                    <div className="photo-input"><MdAddAPhoto /></div>
                                 </>
                             )}</div>
-                    
+
 
                         <div>
                             {errMsg ? <p>{errMsg}</p> : null}
