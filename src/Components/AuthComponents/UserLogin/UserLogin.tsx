@@ -1,4 +1,4 @@
-import { myAxiosForAuth } from '../../../API/config';
+// import { myAxiosForAuth } from '../../../API/config';
 import logo from '../../../assets/logo.png';
 import { useNavigate } from 'react-router';
 
@@ -23,9 +23,9 @@ const UserLogin: React.FC<UserLoginProps> = () => {
     }, 800)
 
 
-    const userData = {
-        idUser: user.id
-    }
+    // const userData = {
+    //     idUser: user.id
+    // }
     // myAxiosForAuth.post('/users/login',userData)
 
     return (
